@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: second-app
+      tier: backend
+  template:
+    metadata: 
+      labels:
+        app: second-app
+        tier: backend
+    spec: 
+      containers:
+        - name: second-node
+          image: jmfayard/kub-first-app:v2
+          livenessProbe:
+            periodSeconds: 10
+            httpGet:
+              path: /ping
+              port: 8080
+
+            
+
+
